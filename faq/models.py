@@ -5,6 +5,9 @@ from django.core.cache import cache
 
 # Create your models here.
 class FAQ(models.Model):
+    """
+    Model to store FAQs with multilingual support.
+    """
     question = models.TextField() # Question in English
     answer = RichTextField()        # Answer with WYSIWYG support
     question_ml = models.TextField(blank=True, null=True) # Malayalam Translation
