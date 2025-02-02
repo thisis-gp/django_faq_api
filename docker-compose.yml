@@ -1,0 +1,27 @@
+# docker-compose.yml
+version: "3.9"
+
+services:
+  web:
+    build:
+      context: .  # Build from the current directory
+      dockerfile: Dockerfile  # Use the specified Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app  # Mount the current directory
+    depends_on:
+      - redis
+    environment:
+      - REDIS_HOST=redis
+    command: sh -c "python manage.py runserver 0.0.0.0:8000 " # or python manage.py runserver 0.0.0.0:8000
+
+  redis:
+    image: "redis:latest"
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+volumes:
+  redis_data:
