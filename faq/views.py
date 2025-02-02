@@ -7,5 +7,8 @@ class FAQList(generics.ListAPIView):
     serializer_class = FAQSerializer
 
     def get_queryset(self):
+        lang = self.request.query_params.get('lang', 'en')
         queryset = FAQ.objects.all()
+        for faq in queryset:
+            faq.question = faq.get_translated_question(lang)
         return queryset

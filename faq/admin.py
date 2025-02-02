@@ -4,4 +4,4 @@ from .models import FAQ
 # Register your models here.
 @admin.register(FAQ)
 class FAQAdmin(admin.ModelAdmin):
-    list_display=('question',)
+    list_display=('question', 'question_ml', 'question_ta')
