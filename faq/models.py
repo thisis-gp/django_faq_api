@@ -1,6 +1,7 @@
 from django.db import models
 from ckeditor.fields import RichTextField
 from googletrans import Translator
+from django.core.cache import cache
 
 # Create your models here.
 class FAQ(models.Model):
@@ -37,4 +38,9 @@ class FAQ(models.Model):
             self.question_ml = self.translate_text(self.question,"ml")
         if not self.question_ta:
             self.question_ta = self.translate_text(self.question,"ta")
+        cache.clear()
         super().save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        cache.clear()
+        return super().delete(*args, **kwargs)
